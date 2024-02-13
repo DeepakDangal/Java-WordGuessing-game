@@ -23,7 +23,7 @@ public class UserController {
         User user = userRepository.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user);
-            return "redirect:/dashboard";
+            return "redirect:/";
         } else {
             model.addAttribute("error", "Invalid email or password");
             return "form";
