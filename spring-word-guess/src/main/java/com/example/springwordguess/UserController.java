@@ -53,7 +53,35 @@ public class UserController {
         return "signup";
     }
 
+   @PostMapping("/signup-verification")
+   public String signup(@RequestParam String name,
+                        @RequestParam String email,
+                        @RequestParam String password,
+                        Model model) {
 
+// Validate inputs (add more validation as needed)
+       if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+           model.addAttribute("error", "All fields must be filled");
+           return "signup";
+       }
+
+// Check if the email is already registered
+       if (userRepository.findByEmail(email) != null) {
+           model.addAttribute("error", "Email is already registered");
+           return "signup";
+       }
+
+// Create a new user
+       User newUser = new User();
+       newUser.setName(name);
+       newUser.setEmail(email);
+       newUser.setPassword(password);
+
+// Save the user to the database
+       userRepository.save(newUser);
+
+       return "redirect:/form"; // Redirect to the home page or login page
+   }
 
 
 

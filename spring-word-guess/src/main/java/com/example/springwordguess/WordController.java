@@ -58,7 +58,5 @@ public class WordController {
         return "Score updated successfully";
     }
 
-
-
 }
 
